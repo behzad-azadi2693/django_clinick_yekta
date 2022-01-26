@@ -1,0 +1,7 @@
+db*
+000*
+sbenv/
+venv/
+__pycache__/
+media/
+static/
