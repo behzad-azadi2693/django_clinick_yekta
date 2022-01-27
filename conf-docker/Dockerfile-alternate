@@ -1,0 +1,32 @@
+FROM python
+
+ENV PYTHONDONTWRITEBYTECODE 1
+
+ENV PYTHONUNBUFFERED 1
+
+RUN pip install --upgrade pip
+
+RUN pip install -r requirements.txt
+
+RUN apt install -y git
+
+RUN export LC_ALL="fa_IR.UTF-8"
+RUN export LC_CTYPE="fa_IR.UTF-8"
+
+RUN git clone https://github.com/certbot/certbot.git
+
+CMD "cd certbot && ./certbot-auto certonly \
+                    --manual \
+                    --preferred-challenges=dns  \
+                    --email Ahmadrezamansuory@outlook.com \
+                    --server https://acme-v02.api.letsencrypt.org/directory \
+                    --agree-tos \
+                    -d *.clinickyekta.com"
+
+RUN ./certbot-auto certificates
+
+WORKDIR /code
+
+COPY . /code/
+
+EXPOSE 8000

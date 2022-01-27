@@ -17,7 +17,9 @@ services:
             - postgres_data:/var/lib/postgresql/data 
 
     app:
-        build: .
+        build:
+            context: ./conf-docker
+            dockerfile: Dockerfile-alternate
         container_name: app
         restart: on-failure
         command: sh -c "python3 manage.py makemigrations && 
@@ -39,6 +41,7 @@ services:
     nginx:
         image: nginx
         container_name: nginx
+        command: nginx -g 'daemon off;'
         restart: on-failure
         depends_on:
             - app
@@ -47,10 +50,10 @@ services:
         ports: 
             - "80:80"
         volumes: 
-            - ./data/nginx/conf.d:/etc/nginx/conf.d
+            - ./conf-docker/nginx/conf_alternate.d:/etc/nginx/conf.d
             - ./media:/app/media
             - ./static:/app/static
-           
+            
 
 networks:
   main:

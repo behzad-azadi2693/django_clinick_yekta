@@ -17,7 +17,9 @@ services:
             - postgres_data:/var/lib/postgresql/data 
 
     app:
-        build: .
+        build:
+            context: ./conf-docker
+            dockerfile: Dockerfile
         container_name: app
         restart: on-failure
         command: sh -c "python3 manage.py makemigrations && 
@@ -49,7 +51,7 @@ services:
             - "80:80"
             - "443:443"
         volumes: 
-            - ./data/nginx/conf_ssl.d:/etc/nginx/conf.d
+            - ./conf-docker/nginx/conf.d:/etc/nginx/conf.d
             - ./media:/app/media
             - ./static:/app/static
             - ./data/certbot/conf:/etc/letsencrypt/:ro
