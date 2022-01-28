@@ -19,7 +19,7 @@ services:
     app:
         build:
             context: .
-            dockerfile: Dockerfile-alternate
+            dockerfile: Dockerfile
         container_name: app
         restart: on-failure
         command: sh -c "python3 manage.py makemigrations && 
@@ -50,10 +50,18 @@ services:
         ports: 
             - "80:80"
         volumes: 
-            - ./data/nginx/conf_alternate.d:/etc/nginx/conf.d
+            - ./data/nginx/conf_alternate.d/one:/etc/nginx/conf.d/:ro
             - ./media:/app/media
             - ./static:/app/static
-            
+            - ./data/certbot/www/:/var/www/certbot/:ro
+
+    certbot:
+        image: certbot/cerbot
+        container_name: certbot
+        restart: on-failure
+        volumes:
+          - ./data/certbot/www/:/var/www/certbot/:rw
+
 
 networks:
   main:
