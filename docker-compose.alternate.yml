@@ -49,6 +49,7 @@ services:
             - main
         ports: 
             - "80:80"
+            - "443:443"
         volumes: 
             - ./data/nginx/conf_alternate.d/one:/etc/nginx/conf.d/:ro
             - ./media:/app/media
