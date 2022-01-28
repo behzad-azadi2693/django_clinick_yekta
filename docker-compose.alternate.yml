@@ -18,7 +18,7 @@ services:
 
     app:
         build:
-            context: ./conf-docker
+            context: .
             dockerfile: Dockerfile-alternate
         container_name: app
         restart: on-failure
@@ -50,7 +50,7 @@ services:
         ports: 
             - "80:80"
         volumes: 
-            - ./conf-docker/nginx/conf_alternate.d:/etc/nginx/conf.d
+            - ./data/nginx/conf_alternate.d:/etc/nginx/conf.d
             - ./media:/app/media
             - ./static:/app/static
             

@@ -18,7 +18,7 @@ services:
 
     app:
         build:
-            context: ./conf-docker
+            context: .
             dockerfile: Dockerfile
         container_name: app
         restart: on-failure
@@ -51,7 +51,7 @@ services:
             - "80:80"
             - "443:443"
         volumes: 
-            - ./conf-docker/nginx/conf.d:/etc/nginx/conf.d
+            - ./data/nginx/conf.d:/etc/nginx/conf.d
             - ./media:/app/media
             - ./static:/app/static
             - ./data/certbot/conf:/etc/letsencrypt/:ro
