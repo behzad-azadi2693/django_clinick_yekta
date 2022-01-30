@@ -55,13 +55,15 @@ services:
             - ./media:/app/media
             - ./static:/app/static
             - ./data/certbot/www/:/var/www/certbot/:ro
+            #- ./data/certbot/conf:/etc/nginx/ssl/:ro
 
     certbot:
-        image: certbot/cerbot
+        image: certbot/certbot
         container_name: certbot
         restart: on-failure
         volumes:
           - ./data/certbot/www/:/var/www/certbot/:rw
+           # - ./data/certbot/conf/:/etc/letsencrypt/:rw
 
 
 networks:
