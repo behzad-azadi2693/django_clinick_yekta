@@ -1,6 +1,7 @@
 from tabnanny import verbose
 from django.db import models
 from django.core.validators import RegexValidator
+from django.contrib import admin
 
 # Create your models here.
 
@@ -44,7 +45,11 @@ class CustomerInfo(models.Model):
     class Meta:
         verbose_name = 'اطلاعات'
         verbose_name_plural = 'اطلاعات'
-
+    
+    @admin.display(description='تاریخ')
+    def created(self):
+        return self.created
+    
     def __str__(self):
         return self.name
 
